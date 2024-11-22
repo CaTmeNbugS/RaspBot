@@ -4,7 +4,11 @@ from Handler_Message import MessageHandler, isMessageHandler
 
 from Commandlet_Command import command
 
-from Config import bot
+from   Server import WebhookServer
+import cherrypy
+
+from   Config import bot
+import Config
 
 @bot.message_handler(func = lambda msg: isMessageHandler(msg.text))
 def handler(msg):
@@ -33,5 +37,9 @@ def f(msg):
     command(bot, msg)
 
 
-bot.infinity_polling(timeout = 10, long_polling_timeout = 5)
+bot.remove_webhook()
+bot.set_webhook(url = Config.WEBHOOK_URL_BASE + Config.WEBHOOK_URL_PATH, certificate = open(Config.WEBHOOK_SSL_CERT, 'r'))
+
+cherrypy.quickstart(WebhookServer(), Config.WEBHOOK_URL_PATH, {'/': {}})
+
 

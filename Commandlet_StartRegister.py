@@ -16,7 +16,7 @@ class RegisterCommandlet:
 
     def start(self, msg):
 
-        self.bot.send_message(msg.chat.id, '*Разработчик*: `Кандаленцев Михаил`\n*Репозиторий*: `https://github.com/CaTmeNbugS/RaspBot`\n*Версия*: `1.2`', parse_mode='Markdown')
+        self.bot.send_message(msg.chat.id, '*Разработчик*: `Кандаленцев Михаил`\n*Репозиторий*: `https://github.com/CaTmeNbugS/RaspBot`\n*Версия*: `1.3`', parse_mode='Markdown')
         self.bot.send_message(msg.chat.id, f'Привет, <b>{msg.from_user.first_name}</b>! Введи некоторые данные о себе\nТы в любой момент можешь их изменить написав /start', parse_mode='HTML')
 
         logging.info(f'{getUserInfo(msg)} start register')
@@ -42,7 +42,8 @@ class RegisterCommandlet:
         else:
 
             self.bot.send_message(msg.chat.id, "<b>Извини</b>, но я ничего не нашел 🥺", parse_mode='HTML')
-            self.bot.send_message(msg.chat.id, "Напиши вот в таком формате: <b>23ИСП-3 / ИВАНОВ</b>", parse_mode='HTML')
+            self.bot.send_message(msg.chat.id, "Если ты студент - напиши вот в таком формате: <b>23ИСП-3</b>\n❗️ Без пробелов, номер группы писать через тире(-) ❗️", parse_mode='HTML')
+            self.bot.send_message(msg.chat.id, "Если ты преподаватель - напиши <b> свою фамилию</b>", parse_mode='HTML')
 
             logging.warning(f'{getUserInfo(msg)} entered the group incorrectly ({json.dumps(msg.text)})')
 
